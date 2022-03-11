@@ -11,7 +11,6 @@ const JWT_CONFIG = {
 const genAuthToken = (userData) => {
   const token = jwt.sign({ data: userData }, JWT_SECRET, JWT_CONFIG);
 
-  console.log(token);
   return token;
 };
 
