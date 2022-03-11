@@ -1,23 +1,25 @@
 const authService = require('../services/auth');
 
-module.exports = async (req, res, next) => {
+const validateAuthToken = async (req, res, next) => {
   try {
     const { authorization } = req.headers;
 
     if (!authorization) {
-      return req.status(401).json({ message: 'fill me pls' });
+      return res.status(401).json({ message: 'Token not found' });
     }
 
-    const user = authService.verifyToken(authorization);
+    const user = await authService.verifyToken(authorization);
 
     if (!user) {
-      return res.status(401).json({ message: 'fill' });
+      return res.status(401).json({ message: 'Expired or invalid token' });
     }
 
-    req.email = user;
     next();
   } catch (err) {
-    console.err(err);
     return res.status(500).end();
   }
+};
+
+module.exports = {
+  validateAuthToken,
 };

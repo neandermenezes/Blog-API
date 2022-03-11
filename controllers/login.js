@@ -8,7 +8,7 @@ module.exports = async (req, res) => {
 
     if (!login) return res.status(400).json({ message: 'Invalid fields' });
 
-    return res.status(200).json({ message: login.token });
+    return res.status(200).json({ token: login.token });
   } catch (err) {
     return err;
   }
