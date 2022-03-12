@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const { JWT_SECRET } = process.env;
 
 const JWT_CONFIG = {
-  expiresIn: 60,
+  expiresIn: '7d',
   algorithm: 'HS256',
 };
 
@@ -17,9 +17,9 @@ const genAuthToken = (userData) => {
 const verifyToken = (token) => {
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
-    const { email } = decoded.data;
+    const { id } = decoded.data;
 
-    return email;
+    return id;
   } catch (err) {
     return null;
   }
