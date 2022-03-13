@@ -40,6 +40,7 @@ categoriesRouter.get('/', validateAuthToken, categoriesController.listAll);
 postRouter.post(
   '/', validateAuthToken, validateTitle, validateContent, validateCategories, postController.create,
 );
+postRouter.get('/', validateAuthToken, postController.listAll);
 
 module.exports = {
   loginRouter,
