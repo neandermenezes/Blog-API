@@ -19,6 +19,7 @@ const {
   validateTitle, 
   validateContent, 
   validateCategories,
+  validateId,
 } = require('./middlewares/postValidations');
 
 const { validateAuthToken } = require('./middlewares/auth');
@@ -41,6 +42,7 @@ postRouter.post(
   '/', validateAuthToken, validateTitle, validateContent, validateCategories, postController.create,
 );
 postRouter.get('/', validateAuthToken, postController.listAll);
+postRouter.get('/:id', validateAuthToken, validateId, postController.listById);
 
 module.exports = {
   loginRouter,

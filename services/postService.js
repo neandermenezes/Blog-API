@@ -26,7 +26,24 @@ const listAll = async () => {
   return allPosts;
 };
 
+const listById = async (id) => {
+  const postInfo = await BlogPosts.findOne({
+    where: { id },
+    include: [
+      { model: Users, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Categories, as: 'categories', attributes: { exclude: ['PostsCategories'] } },
+    ],
+  });
+
+  if (!postInfo) return false;
+
+  const allPosts = JSON.stringify(postInfo, null, 2);
+
+  return allPosts;
+};
+
 module.exports = {
   create,
   listAll,
+  listById,
 };
