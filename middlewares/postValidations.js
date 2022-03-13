@@ -1,4 +1,5 @@
 const { Categories } = require('../models');
+const postService = require('../services/postService');
 
 const validateTitle = (req, res, next) => {
   const { title } = req.body;
@@ -40,9 +41,31 @@ const validateId = async (req, res, next) => {
   next();
 };
 
+const validateUpdateBody = async (req, res, next) => {
+  if (Object.keys(req.body).includes('categoryIds')) {
+    return res.status(400).json({ message: 'Categories cannot be edited' });
+  } 
+  
+  next();
+};
+
+const validateOwnership = async (req, res, next) => {
+  const { id } = req.params;
+
+  const user = await postService.listById(Number(id));
+  const userInfo = JSON.parse(user);
+
+  if (Number(userInfo.user.id) !== req.id) {
+    return res.status(401).json({ message: 'Unauthorized user' });
+  }
+  next();
+};
+
 module.exports = {
   validateTitle,
   validateContent,
   validateCategories,
   validateId,
+  validateUpdateBody,
+  validateOwnership,
 };

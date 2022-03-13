@@ -40,8 +40,23 @@ const listById = async (req, res) => {
   }
 };
 
+const update = async (req, res) => {
+  try {
+    const { title, content } = req.body;
+    const { id } = req.params;
+
+    const updatedPost = await postService.update(id, title, content);
+
+    return res.status(200).json(updatedPost);
+  } catch (err) {
+    console.log(err.message);
+    return err;
+  }
+};
+
 module.exports = {
   create,
   listAll,
   listById,
+  update,
 };

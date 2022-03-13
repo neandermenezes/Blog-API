@@ -42,8 +42,19 @@ const listById = async (id) => {
   return allPosts;
 };
 
+const update = async (id, title, content) => {
+  await BlogPosts.update({ title, content }, { where: { id } });
+
+  const updatedPost = JSON.parse(await listById(id));
+  
+  delete updatedPost.user;
+
+  return updatedPost;
+};
+
 module.exports = {
   create,
   listAll,
   listById,
+  update,
 };
