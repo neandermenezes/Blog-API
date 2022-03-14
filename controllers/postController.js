@@ -58,7 +58,7 @@ const exclude = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const deletedPost = await postService.exclude(id);
+    const deletedPost = await postService.exclude(Number(id));
 
     if (!deletedPost) return res.status(404).json({ message: 'Post does not exist' });
 

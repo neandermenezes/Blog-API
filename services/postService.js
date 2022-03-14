@@ -39,7 +39,7 @@ const listById = async (id) => {
 
   const allPosts = JSON.stringify(postInfo, null, 2);
 
-  return allPosts;
+  return JSON.parse(allPosts);
 };
 
 const update = async (id, title, content) => {

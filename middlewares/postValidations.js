@@ -51,16 +51,15 @@ const validateUpdateBody = async (req, res, next) => {
 
 const validateOwnership = async (req, res, next) => {
   const { id } = req.params;
-  console.log(id);
+
   const user = await postService.listById(Number(id));
+  
+  if (!user) return res.status(404).json({ message: 'Post does not exist' });
 
-  if (!user) return false;
-
-  const userInfo = JSON.parse(user);
-
-  if (Number(userInfo.user.id) !== req.id) {
+  if (Number(user.user.id) !== req.id) {
     return res.status(401).json({ message: 'Unauthorized user' });
   }
+
   next();
 };
 
