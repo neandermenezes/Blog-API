@@ -38,18 +38,14 @@ const listById = async (id) => {
     ],
   });
 
-  if (!postInfo) return false;
-
-  const allPosts = JSON.stringify(postInfo, null, 2);
-
-  return JSON.parse(allPosts);
+  return postInfo;
 };
 
 const update = async (id, title, content) => {
   await BlogPosts.update({ title, content }, { where: { id } });
 
-  const updatedPost = JSON.parse(await listById(id));
-  
+  const updatedPost = await listById(id);
+
   delete updatedPost.user;
 
   return updatedPost;

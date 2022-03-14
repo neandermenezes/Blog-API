@@ -33,7 +33,7 @@ const listById = async (req, res) => {
 
     if (!postInfo) return res.status(404).json({ message: 'Post does not exist' });
 
-    return res.status(200).json(JSON.parse(postInfo));
+    return res.status(200).json(postInfo);
   } catch (err) {
     console.log(err.message);
     return err;
@@ -45,7 +45,7 @@ const update = async (req, res) => {
     const { title, content } = req.body;
     const { id } = req.params;
 
-    const updatedPost = await postService.update(id, title, content);
+    const updatedPost = await postService.update(Number(id), title, content);
 
     return res.status(200).json(updatedPost);
   } catch (err) {
