@@ -1,4 +1,7 @@
+const Sequelize = require('sequelize');
 const { BlogPosts, PostsCategories, Users, Categories } = require('../models');
+
+const { Op } = Sequelize;
 
 const create = async (title, content, userId, categoryIds) => {
   const newPost = await BlogPosts.create({ title, content, userId });
@@ -62,10 +65,48 @@ const exclude = async (id) => {
   return true;
 };
 
+// https://stackoverflow.com/questions/34255792/sequelize-how-to-search-multiple-columns
+const searchQuery = async (query) => {
+  const postInfo = await BlogPosts.findAll({
+    where: { 
+      [Op.or]: [
+        { title: { [Op.like]: `%${query}%` } },
+        { content: { [Op.like]: `%${query}%` } },
+      ],
+     },
+    include: [
+      { model: Users, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Categories, as: 'categories', attributes: { exclude: ['PostsCategories'] } },
+    ],
+  });
+
+  if (!postInfo) return false;
+
+  const allPosts = JSON.stringify(postInfo, null, 2);
+
+  return JSON.parse(allPosts);
+};
+
+const searchyMain = async (query) => {
+  let postsMatched;
+
+  if (query === '') {
+    postsMatched = await listAll();
+    return JSON.parse(postsMatched);
+  }
+
+  postsMatched = await searchQuery(query);
+
+  if (!postsMatched) return false;
+
+  return postsMatched;
+};
+
 module.exports = {
   create,
   listAll,
   listById,
   update,
   exclude,
+  searchyMain,
 };

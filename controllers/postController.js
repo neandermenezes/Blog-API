@@ -69,10 +69,24 @@ const exclude = async (req, res) => {
   }
 };
 
+const searchQuery = async (req, res) => {
+  try {
+    const { q } = req.query;
+    const postsMatched = await postService.searchyMain(q);
+
+    if (!postsMatched) return res.status(200).json([]);
+    return res.status(200).json(postsMatched);
+  } catch (err) {
+    console.log(err.message);
+    return err;
+  }
+};
+
 module.exports = {
   create,
   listAll,
   listById,
   update,
   exclude,
+  searchQuery,
 };

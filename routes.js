@@ -41,6 +41,7 @@ userRouter.delete('/me', validateAuthToken, userController.exclude);
 categoriesRouter.post('/', validateAuthToken, validateName, categoriesController.create);
 categoriesRouter.get('/', validateAuthToken, categoriesController.listAll);
 
+postRouter.get('/search', validateAuthToken, postController.searchQuery);
 postRouter.post(
   '/', validateAuthToken, validateTitle, validateContent, validateCategories, postController.create,
 );
