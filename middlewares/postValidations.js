@@ -51,8 +51,11 @@ const validateUpdateBody = async (req, res, next) => {
 
 const validateOwnership = async (req, res, next) => {
   const { id } = req.params;
-
+  console.log(id);
   const user = await postService.listById(Number(id));
+
+  if (!user) return false;
+
   const userInfo = JSON.parse(user);
 
   if (Number(userInfo.user.id) !== req.id) {

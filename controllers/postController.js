@@ -54,9 +54,25 @@ const update = async (req, res) => {
   }
 };
 
+const exclude = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const deletedPost = await postService.exclude(id);
+
+    if (!deletedPost) return res.status(404).json({ message: 'Post does not exist' });
+
+    return res.status(204).end();
+  } catch (err) {
+    console.log(err.message);
+    return err;
+  }
+};
+
 module.exports = {
   create,
   listAll,
   listById,
   update,
+  exclude,
 };

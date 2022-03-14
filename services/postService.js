@@ -52,9 +52,20 @@ const update = async (id, title, content) => {
   return updatedPost;
 };
 
+const exclude = async (id) => {
+  const validPost = await listById(id);
+
+  if (!validPost) return false;
+
+  await BlogPosts.destroy({ where: { id } });
+
+  return true;
+};
+
 module.exports = {
   create,
   listAll,
   listById,
   update,
+  exclude,
 };

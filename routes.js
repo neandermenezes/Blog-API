@@ -54,6 +54,7 @@ postRouter.put(
   validateContent, 
   postController.update,
 );
+postRouter.delete('/:id', validateAuthToken, validateOwnership, postController.exclude);
 
 module.exports = {
   loginRouter,
