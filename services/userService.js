@@ -10,6 +10,13 @@ const listById = async (id) => {
   return user;
 };
 
+const exclude = async (id) => {
+  await Users.destroy({ where: { id } });
+
+  return true;
+};
+
 module.exports = {
   listById,
+  exclude,
 };

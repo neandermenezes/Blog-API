@@ -13,7 +13,7 @@ const validateAuthToken = async (req, res, next) => {
     if (!user) {
       return res.status(401).json({ message: 'Expired or invalid token' });
     }
-    console.log(user);
+
     req.id = user;
 
     next();

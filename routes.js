@@ -36,6 +36,7 @@ loginRouter.post('/', emailValidation, passwordValidation, login);
 userRouter.post('/', validateDisplayName, validateEmail, validatePassword, userController.create);
 userRouter.get('/', validateAuthToken, userController.listAll);
 userRouter.get('/:id', validateAuthToken, userController.listById);
+userRouter.delete('/me', validateAuthToken, userController.exclude);
 
 categoriesRouter.post('/', validateAuthToken, validateName, categoriesController.create);
 categoriesRouter.get('/', validateAuthToken, categoriesController.listAll);

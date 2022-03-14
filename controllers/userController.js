@@ -38,7 +38,18 @@ const listById = async (req, res) => {
   
     return res.status(200).json(user);
   } catch (err) {
-    console.log(err);
+    console.log(err.message);
+    return err;
+  }
+};
+
+const exclude = async (req, res) => {
+  try {
+    await userService.exclude(req.id);
+
+    return res.status(204).end();
+  } catch (err) {
+    console.log(err.message);
     return err;
   }
 };
@@ -47,4 +58,5 @@ module.exports = {
   create,
   listAll,
   listById,
+  exclude,
 };
