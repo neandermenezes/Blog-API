@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const { loginRouter, userRouter, categoriesRouter, postRouter } = require('./routes');
 require('dotenv').config();
 
-const host = process.env.PORT;
+const host = process.env.PORT || 3000;
 
 const app = express();
 
