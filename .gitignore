@@ -22,3 +22,12 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+/tests
+.eslintignore
+.eslintrc.json
+.trybe.yml
+/public
+/.trybe
+/.idea
+/.github
