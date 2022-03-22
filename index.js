@@ -4,6 +4,7 @@ const loginRouter = require('./routes/loginRouter');
 const userRouter = require('./routes/userRouter');
 const categoriesRouter = require('./routes/categoriesRouter');
 const postRouter = require('./routes/postRouter');
+
 require('dotenv').config();
 
 const host = process.env.PORT || 3000;

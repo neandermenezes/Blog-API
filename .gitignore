@@ -27,7 +27,6 @@ yarn-error.log*
 .eslintignore
 .eslintrc.json
 .trybe.yml
-/public
 /.trybe
 /.idea
 /.github
